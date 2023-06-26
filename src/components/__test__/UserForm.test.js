@@ -10,7 +10,7 @@ it("should render two inputs and a button", () => {
   expect(button).toBeInTheDocument();
 });
 
-it("should call onUserAdd when the form is submitted", () => {
+it("should call onUserAdd when the form is submitted", async () => {
   const mock = jest.fn();
 
   render(<UserForm onUserAdd={mock} />);
@@ -19,16 +19,16 @@ it("should call onUserAdd when the form is submitted", () => {
   const nameInput = screen.getByRole("textbox", { name: /name/i });
   const emailInput = screen.getByRole("textbox", { name: /email/i });
 
-  user.click(nameInput);
-  user.keyboard("jane");
+  await user.click(nameInput);
+  await user.keyboard("jane");
 
-  user.click(emailInput);
-  user.keyboard("jane@email.com");
+  await user.click(emailInput);
+  await user.keyboard("jane@email.com");
 
-  user.click(button);
+  await user.click(button);
 
   expect(mock).toHaveBeenCalled();
   expect(mock).toHaveBeenCalledWith({ name: "jane", email: "jane@email.com" });
-
-  
 });
+
+
